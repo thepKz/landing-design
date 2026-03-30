@@ -21,3 +21,5 @@ npm run build
 PowerShell: `$env:BASE_PATH="/landing-design"; npm run build`
 
 Dev thường: không set `BASE_PATH` — `npm run dev` tại `http://localhost:3000/`.
+
+**Windows:** Nếu thư mục dự án có đoạn `\x` trong path (ví dụ `...\x_luxury\...`), `next build` trên máy local có thể lỗi Terser; CI trên GitHub vẫn build bình thường. Đổi tên thư mục hoặc clone sang path không chứa `\x_` nếu cần build local.
