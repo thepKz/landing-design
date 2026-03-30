@@ -2,13 +2,22 @@
 
 Next.js landing site trong thư mục [`md-design`](./md-design).
 
-## Deploy (GitHub Actions → Vercel)
+## Deploy (GitHub Actions → GitHub Pages)
 
-1. Tạo project trên [Vercel](https://vercel.com) và import repo `thepKz/landing-design` (hoặc link CLI).
-2. Trong repo GitHub: **Settings → Secrets and variables → Actions**, thêm:
-   - `VERCEL_TOKEN` — [Vercel Account Settings → Tokens](https://vercel.com/account/tokens)
-   - `VERCEL_ORG_ID` — trong `.vercel/project.json` sau `vercel link`, hoặc team/project settings
-   - `VERCEL_PROJECT_ID` — cùng nguồn như trên
-3. Push lên `main`: workflow **Deploy to Vercel** sẽ build và deploy.
+Site production: `https://thepKz.github.io/landing-design/` (đường dẫn gốc = tên repo).
 
-Build chạy trong `md-design` (Node 20, `npm ci`, `npm run build`).
+1. Trên GitHub: **Settings → Pages → Build and deployment → Source** chọn **GitHub Actions** (không dùng “Deploy from a branch”).
+2. Push lên `main`: workflow **Deploy GitHub Pages** build static (`next build` với `output: export`), upload thư mục `out/`.
+3. Build trong CI đặt `BASE_PATH=/landing-design` để asset và `Link` đúng prefix.
+
+Chạy local giống production (có basePath):
+
+```bash
+cd md-design
+set BASE_PATH=/landing-design
+npm run build
+```
+
+PowerShell: `$env:BASE_PATH="/landing-design"; npm run build`
+
+Dev thường: không set `BASE_PATH` — `npm run dev` tại `http://localhost:3000/`.
