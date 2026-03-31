@@ -93,11 +93,11 @@ export default function MobileMenu({
         }}
       />
 
-      <div className="absolute top-6 right-6">
-        {CloseXButton({ onClick: onClose })}
+      <div className="absolute top-6 right-6 z-[70] pointer-events-auto">
+        <CloseXButton onClick={onClose} />
       </div>
 
-      <div className="relative h-full flex flex-col">
+      <div className="relative z-0 h-full flex flex-col">
         <div className="px-6 pt-24 pb-10">
           <div className="rounded-[16px] border border-ivory/12 bg-obsidian/40 p-6">
             <div className="text-[11px] uppercase tracking-[0.18em] text-gold/95 font-medium">
@@ -108,10 +108,6 @@ export default function MobileMenu({
               <span className="ml-3 font-light text-ivory/80 tracking-[0.18em] uppercase text-[12px] align-top">
                 DESIGN
               </span>
-            </div>
-            <div className="mt-6 h-px bg-ivory/10" />
-            <div className="mt-6 text-[13px] leading-6 text-ivory/70 max-w-[34ch]">
-              Các nhánh dự án và dịch vụ được sắp theo nhịp runway: gọn, rõ và dễ tiếp cận.
             </div>
           </div>
         </div>

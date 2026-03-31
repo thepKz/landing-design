@@ -38,23 +38,27 @@ const services = [
     title: "Thiết kế kiến trúc và sân vườn",
     desc: "Quy hoạch theo tỷ lệ sống.",
     image: "https://picsum.photos/id/1011/1200/900.jpg",
+    chip: "Kiến trúc",
   },
   {
     title: "Thiết kế nội thất cao cấp",
     desc: "Ngôn ngữ vật liệu tinh gọn.",
     image: "https://picsum.photos/id/1009/1200/900.jpg",
+    chip: "Nội thất",
   },
   {
     title: "Thi công hoàn thiện trọn gói",
     desc: "Chất lượng theo từng mốc.",
     image: "https://picsum.photos/id/1026/1200/900.jpg",
+    chip: "Thi công",
   },
   {
     title: "Bàn giao chìa khóa trao tay",
     desc: "Tinh chỉnh trước khi bàn giao.",
     image: "https://picsum.photos/id/1035/1200/900.jpg",
+    chip: "Bàn giao",
   },
-];
+] as const;
 
 export default function LandingSections() {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -597,7 +601,7 @@ export default function LandingSections() {
                     className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,9,0.82)] to-transparent"
                   />
                   <div className="absolute inset-x-0 bottom-0 flex min-h-[180px] flex-col justify-end p-5 text-ivory">
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-gold/90">{item.city}</div>
+                    <div className="text-[10px] uppercase tracking-[0.18em] text-gold/60">{item.city}</div>
                     <h3 className="mt-2 min-h-[2.6em] text-[30px] leading-[1.15] tracking-tight">{item.title}</h3>
                     <div className="mt-3 h-px bg-ivory/15" />
                     <p className="mt-3 text-ivory/80 text-sm tabular-nums">{item.area}</p>
@@ -641,11 +645,11 @@ export default function LandingSections() {
                     </div>
                     <div className="w-full h-px bg-border/70" />
                     <div className="text-[10px] uppercase tracking-[0.26em] text-stone font-medium">
-                      03
+                      04
                     </div>
                   </div>
                   <div className="mt-6 flex items-start gap-6">
-                    <div className="relative w-[10px] h-[180px]">
+                    <div className="relative w-[10px] h-[220px]">
                       <div className="absolute inset-0 rounded-full bg-obsidian/10" />
                       <div
                         ref={flowProgressRef}
@@ -658,6 +662,7 @@ export default function LandingSections() {
                         { k: "01", v: "Bố trí" },
                         { k: "02", v: "Vật liệu" },
                         { k: "03", v: "Thi công" },
+                        { k: "04", v: "Bàn giao" },
                       ].map((it) => (
                         <div key={it.k} className="flex items-center gap-4">
                           <span className="w-8">{it.k}</span>
@@ -856,11 +861,13 @@ export default function LandingSections() {
                     : idx === 2
                       ? "lg:col-span-5 lg:translate-y-3"
                       : "lg:col-span-7 lg:-translate-y-3";
+              const revealLr = (["left", "right", "left", "right"] as const)[idx] ?? "left";
 
               return (
                 <article
                   key={item.title}
                   data-reveal
+                  data-reveal-lr={revealLr}
                   className={["group relative", layout].join(" ")}
                 >
                   <div className="rounded-[18px] border border-border/80 bg-ivory/40 p-[2px] h-full transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
@@ -896,7 +903,7 @@ export default function LandingSections() {
                             </div>
                             <div className="w-full h-px bg-ivory/15" />
                             <div className="text-[10px] uppercase tracking-[0.26em] text-gold/85 font-medium whitespace-nowrap">
-                              Material
+                              {item.chip}
                             </div>
                           </div>
                           <h3 className="mt-3 text-[clamp(22px,2.1vw,34px)] leading-[1.08] text-ivory max-w-[26ch]">
@@ -1005,33 +1012,37 @@ export default function LandingSections() {
                     </div>
                   </div>
                   <div className="mt-8 w-10 h-px bg-gold" />
-                  <div className="mt-6 text-[11px] uppercase tracking-[0.18em] text-ivory font-medium">
-                    Hà Nội / TP.HCM
+                  <div className="hidden">
+                    <div className="mt-6 text-[11px] uppercase tracking-[0.18em] text-ivory font-medium">
+                      Hà Nội / TP.HCM
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative min-w-0">
+              <div className="relative min-w-0 w-full max-w-[560px]">
                 <div className="rounded-[18px] border border-border/80 bg-surface p-2 min-w-0">
                   <div className="rounded-[16px] overflow-hidden border border-border/70 bg-obsidian/5 p-2 min-w-0">
-                    <div className="grid grid-cols-1 lg:grid-cols-[0.74fr_0.26fr] gap-2 items-stretch min-w-0">
-                      <div className="relative aspect-[16/10] min-w-0 overflow-hidden rounded-[14px] border border-border/80">
+                    {/* Không dùng minmax(220px, …) cho cột phải — trên lg hẹp nó cướp hết chỗ, ảnh còn ~90px. */}
+                    <div className="grid grid-cols-1 gap-3 items-stretch min-w-0 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-3">
+                      <div className="relative min-h-[220px] min-w-0 w-full overflow-hidden rounded-[14px] border border-border/80 aspect-[16/10] md:aspect-auto md:min-h-[280px] md:max-h-[min(52vh,440px)]">
                         <Image
-                          src="https://picsum.photos/id/1074/1200/800.jpg"
+                          src="https://picsum.photos/seed/md-contact-interior/1200/800.jpg"
                           alt="Không gian atelier"
                           fill
-                          sizes="(min-width: 1024px) 60vw, 100vw"
-                          className="object-cover"
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                          className="object-cover object-[center_30%]"
                           unoptimized
                         />
-                        <div className="absolute inset-0 bg-obsidian/38" />
-                        <div className="absolute inset-x-0 bottom-0 min-w-0 p-3 sm:left-4 sm:right-4 sm:bottom-4 sm:p-0">
-                          <div className="flex min-w-0 flex-col gap-2">
-                            <div className="text-[11px] uppercase tracking-[0.18em] text-gold/90 font-medium">
-                              Liên hệ
-                            </div>
-                            <div className="w-full max-w-full min-w-0 rounded-[12px] border border-ivory/15 bg-[#0f0e0b]/78 px-3 py-2">
-                              <p className="text-[clamp(15px,4.2vw,28px)] font-medium text-ivory leading-[1.15] tracking-[-0.01em] break-words text-balance">
+                        <div
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b0a08]/92 via-[#0b0a08]/35 to-transparent"
+                        />
+                        <div className="absolute left-3 bottom-3 sm:left-4 sm:bottom-4 w-[min(100%,18rem)] max-w-full">
+                          <div className="flex flex-col gap-1.5">
+                            <div className="sr-only">Liên hệ</div>
+                            <div className="hidden">
+                              <p className="text-[clamp(14px,2.4vw,18px)] font-medium text-ivory/95 leading-[1.35] tracking-[0] text-balance">
                                 Bắt đầu hành trình cho căn nhà của bạn
                               </p>
                             </div>
@@ -1039,7 +1050,7 @@ export default function LandingSections() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-2 sm:gap-2">
+                      <div className="grid min-w-0 grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-1 md:gap-2 md:min-h-0 md:justify-stretch">
                         {[
                           { k: "Mail", v: "contact@mddesign.vn" },
                           { k: "Hotline", v: "0968 883 311" },
@@ -1052,7 +1063,7 @@ export default function LandingSections() {
                             <div className="text-[10px] uppercase tracking-[0.22em] text-stone font-medium">
                               {it.k}
                             </div>
-                            <div className="mt-3 text-[13px] leading-5 text-obsidian">
+                            <div className="mt-3 text-[13px] leading-5 text-obsidian break-words">
                               {it.v}
                             </div>
                           </div>
@@ -1131,7 +1142,7 @@ export default function LandingSections() {
                     </label>
                     <input
                       id="name"
-                      className="w-full h-11 px-4 border border-border bg-ivory/30 rounded-[10px] outline-none focus:border-gold transition-colors"
+                      className="w-full h-11 px-4 border border-border bg-ivory/30 rounded-[10px] text-obsidian placeholder:text-stone/60 outline-none focus:border-gold transition-colors"
                       placeholder="Nguyễn Văn A"
                     />
                   </div>
@@ -1141,7 +1152,7 @@ export default function LandingSections() {
                     </label>
                     <input
                       id="phone"
-                      className="w-full h-11 px-4 border border-border bg-ivory/30 rounded-[10px] outline-none focus:border-gold transition-colors"
+                      className="w-full h-11 px-4 border border-border bg-ivory/30 rounded-[10px] text-obsidian placeholder:text-stone/60 outline-none focus:border-gold transition-colors"
                       placeholder="0901 234 567"
                     />
                   </div>
@@ -1152,7 +1163,7 @@ export default function LandingSections() {
                     <textarea
                       id="message"
                       rows={4}
-                      className="w-full px-4 py-3 border border-border bg-ivory/30 rounded-[10px] outline-none focus:border-gold transition-colors resize-none"
+                      className="w-full px-4 py-3 border border-border bg-ivory/30 rounded-[10px] text-obsidian placeholder:text-stone/60 outline-none focus:border-gold transition-colors resize-none"
                       placeholder="Mô tả nhanh phong cách, diện tích và tiến độ mong muốn..."
                     />
                   </div>
