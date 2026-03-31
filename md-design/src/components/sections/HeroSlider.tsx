@@ -335,8 +335,8 @@ export default function HeroSlider() {
         <div className="absolute inset-0 bg-obsidian/70 pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-[1680px] mx-auto px-6 lg:px-12 pt-28 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+      <div className="relative z-10 max-w-[1680px] mx-auto px-6 lg:px-12 pt-28 md:pt-32 lg:pt-[9.25rem] pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 lg:gap-y-14 items-end">
           <div ref={textRef} className="lg:col-span-5 pb-2">
             <div className="flex items-center justify-between gap-6">
               <div
@@ -379,7 +379,7 @@ export default function HeroSlider() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 max-w-[312px]">
+              <div className="flex w-full justify-end">
                 <GlassConsultLink
                   href="/lien-he/"
                   label="Nhận Tư Vấn"
@@ -390,9 +390,12 @@ export default function HeroSlider() {
             </div>
           </div>
 
-          <div ref={imageRef} className="relative lg:col-span-7 hidden lg:block">
+          <div
+            ref={imageRef}
+            className="relative lg:col-span-7 hidden lg:block lg:mt-3 lg:pt-1"
+          >
             <div className="relative">
-              <div className="absolute -right-7 -top-7 -z-10 h-[72%] w-[78%] rounded-[28px] bg-ivory/[0.04] border border-ivory/10" />
+              <div className="absolute -right-7 -bottom-7 -z-10 h-[72%] w-[78%] rounded-[28px] bg-ivory/[0.04] border border-ivory/10" />
               <div data-hero="image-plate" className="relative rounded-[22px] border border-ivory/12 bg-obsidian/25 p-2">
                 <div className="relative rounded-[20px] border border-ivory/12 overflow-hidden bg-obsidian/60">
                   <div data-hero="image-wrap" className="relative h-[560px] will-change-transform">

@@ -106,12 +106,20 @@ export default function Navbar() {
     return () => window.removeEventListener("mousedown", onMouseDown);
   }, [projectOpen]);
 
-  const useSolidBar = isScrolled || !heroDark;
+  /* Chỉ khi đã scroll mới dùng nền đặc + đổi palette theo vùng sáng/tối.
+     Ở đỉnh trang không kích hoạt theo heroDark — nền ivory của #md-hero
+     khiến elementFromPoint báo "sáng" và làm thanh nav ivory chồng lên hero. */
+  const useSolidBar = isScrolled;
   const barBg = useSolidBar
     ? heroDark
-      ? "bg-obsidian/88 backdrop-blur-md border border-ivory/10"
-      : "bg-ivory/92 backdrop-blur-md border border-border/80"
-    : "bg-transparent border border-transparent";
+      ? "bg-obsidian/88 backdrop-blur-md"
+      : "bg-ivory/92 backdrop-blur-md"
+    : "bg-transparent";
+  const barBorder = isScrolled
+    ? heroDark
+      ? "border border-ivory/10"
+      : "border border-border/80"
+    : "border border-transparent";
   const barText = useSolidBar ? (heroDark ? "text-ivory" : "text-obsidian") : "text-ivory";
 
   return (
@@ -123,6 +131,7 @@ export default function Navbar() {
               "h-[66px] rounded-[12px] overflow-visible",
               "transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
               barBg,
+              barBorder,
               barText,
             ].join(" ")}
           >
