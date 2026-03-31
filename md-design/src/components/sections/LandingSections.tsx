@@ -86,6 +86,7 @@ export default function LandingSections() {
               trigger: el,
               start: "top 84%",
               once: true,
+              toggleActions: "play none none none",
             },
           }
         );
@@ -105,6 +106,7 @@ export default function LandingSections() {
               trigger: el,
               start: "top 86%",
               once: true,
+              toggleActions: "play none none none",
             },
           }
         );
@@ -127,6 +129,7 @@ export default function LandingSections() {
               trigger: group,
               start: "top 84%",
               once: true,
+              toggleActions: "play none none none",
             },
           }
         );
@@ -151,6 +154,7 @@ export default function LandingSections() {
                 trigger: imageDetailGrid,
                 start: "top 83%",
                 once: true,
+                toggleActions: "play none none none",
               },
             }
           );
@@ -240,12 +244,15 @@ export default function LandingSections() {
         document.querySelectorAll<HTMLElement>("[data-md-section]")
       );
       if (wipeEl && sections.length) {
+        let wipeDidRun = false;
         sections.forEach((sec) => {
           ScrollTrigger.create({
             trigger: sec,
             start: "top 70%",
             end: "top 40%",
             onEnter: () => {
+              if (wipeDidRun) return;
+              wipeDidRun = true;
               gsap.fromTo(
                 wipeEl,
                 { opacity: 0, yPercent: -35 },
@@ -688,11 +695,13 @@ export default function LandingSections() {
                   d: "Cân sáng, cân texture, tinh chỉnh trước khi trao tay.",
                   img: "https://picsum.photos/id/1032/1200/900.jpg",
                 },
-              ].map((c, idx) => (
+              ].map((c, idx) => {
+                const revealLr = (["left", "left", "right", "right"] as const)[idx] ?? "left";
+                return (
                 <article
                   key={c.t}
                   data-reveal
-                  data-reveal-lr={idx % 2 === 0 ? "left" : "right"}
+                  data-reveal-lr={revealLr}
                   className={[
                     "relative md:hover:z-10",
                     idx === 0 && "md:col-span-12 lg:col-span-8 lg:col-start-1",
@@ -749,7 +758,8 @@ export default function LandingSections() {
                     </div>
                   </div>
                 </article>
-              ))}
+              );
+              })}
             </div>
           </div>
         </div>
@@ -770,13 +780,21 @@ export default function LandingSections() {
           }}
         />
         <div className="max-w-[1680px] mx-auto px-6 lg:px-12">
-          <div data-reveal className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 items-end">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-stone font-medium">Dịch vụ</p>
-              <h2 className="mt-5 text-obsidian leading-[1.06] max-w-[22ch]">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 items-end">
+            <div data-reveal-stagger>
+              <p
+                data-reveal-item
+                className="text-[11px] uppercase tracking-[0.18em] text-stone font-medium"
+              >
+                Dịch vụ
+              </p>
+              <h2
+                data-reveal-item
+                className="mt-5 text-obsidian leading-[1.06] max-w-[22ch]"
+              >
                 Giải pháp trọn gói, nhưng mỗi bước đều có kỷ luật.
               </h2>
-              <div className="mt-7 flex items-center gap-4">
+              <div data-reveal-item className="mt-7 flex items-center gap-4">
                 <div className="w-14 h-px bg-gold" />
                 <div className="text-[12px] text-[#59544b] leading-6 max-w-[44ch]">
                   Thiết kế, vật liệu, thi công — một nhịp thống nhất. Bạn thấy rõ tiến độ theo từng mốc.
@@ -784,14 +802,17 @@ export default function LandingSections() {
               </div>
             </div>
 
-            <div className="relative hidden lg:block">
-              <div className="flex items-center justify-between gap-6 text-[10px] uppercase tracking-[0.26em] text-stone font-medium">
+            <div data-reveal-stagger className="relative hidden lg:block">
+              <div
+                data-reveal-item
+                className="flex items-center justify-between gap-6 text-[10px] uppercase tracking-[0.26em] text-stone font-medium"
+              >
                 <span>Scope</span>
                 <span className="w-full h-px bg-border/80" />
                 <span>04</span>
               </div>
               <div className="mt-6 grid grid-cols-[10px_1fr] gap-6">
-                <div className="relative h-[196px]">
+                <div data-reveal-item className="relative h-[196px]">
                   <div className="absolute inset-0 rounded-full bg-obsidian/10" />
                   <div
                     ref={servicesProgressRef}
@@ -800,22 +821,22 @@ export default function LandingSections() {
                   />
                 </div>
                 <div className="space-y-3 text-[10px] uppercase tracking-[0.22em] text-[#59544b]">
-                  <div className="flex items-center gap-4">
+                  <div data-reveal-item className="flex items-center gap-4">
                     <span className="w-7">01</span>
                     <span className="w-10 h-px bg-border/80" />
                     <span>Material</span>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div data-reveal-item className="flex items-center gap-4">
                     <span className="w-7">02</span>
                     <span className="w-10 h-px bg-border/80" />
                     <span>Structure</span>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div data-reveal-item className="flex items-center gap-4">
                     <span className="w-7">03</span>
                     <span className="w-10 h-px bg-border/80" />
                     <span>Light</span>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div data-reveal-item className="flex items-center gap-4">
                     <span className="w-7">04</span>
                     <span className="w-10 h-px bg-border/80" />
                     <span>Delivery</span>
