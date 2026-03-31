@@ -601,10 +601,28 @@ export default function LandingSections() {
                     className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,9,0.82)] to-transparent"
                   />
                   <div className="absolute inset-x-0 bottom-0 flex min-h-[180px] flex-col justify-end p-5 text-ivory">
-                    <div className="text-[10px] uppercase tracking-[0.18em] text-gold/60">{item.city}</div>
-                    <h3 className="mt-2 min-h-[2.6em] text-[30px] leading-[1.15] tracking-tight">{item.title}</h3>
-                    <div className="mt-3 h-px bg-ivory/15" />
-                    <p className="mt-3 text-ivory/80 text-sm tabular-nums">{item.area}</p>
+                    <div className="rounded-[16px] border border-ivory/12 bg-[#0f0e0b]/20 p-[2px] overflow-hidden">
+                      <div className="relative rounded-[14px] border border-ivory/10 bg-[#0f0e0b]/40 p-5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 opacity-70 mix-blend-screen"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(120deg, rgba(247,244,239,0.0) 0%, rgba(247,244,239,0.18) 38%, rgba(247,244,239,0.0) 72%), radial-gradient(circle at 18% 18%, rgba(208,177,108,0.18), transparent 55%)",
+                          }}
+                        />
+                        <div className="text-[16px] uppercase tracking-[0.18em] text-gold/85 font-medium leading-[1.2]">
+                          {item.city}
+                        </div>
+                        <h3 className="mt-2 min-h-[2.2em] text-[20px] leading-[1.12] tracking-tight">
+                          {item.title}
+                        </h3>
+                        <div className="mt-3 h-px bg-ivory/15" />
+                        <p className="mt-3 text-ivory/80 text-sm tabular-nums">
+                          {item.area}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </article>
